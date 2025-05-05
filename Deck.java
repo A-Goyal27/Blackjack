@@ -4,7 +4,7 @@ public class Deck {
 
     // Constructor to create a standard 52-card deck
     public Deck() {
-        String[] suits = {"Hearts", "Diamonds", "Clubs", "Spades"};
+        String[] suits = {"Spades", "Hearts", "Clubs", "Diamonds"};
         String[] ranks = {"2", "3", "4", "5", "6", "7", "8", "9", "10", "Jack", "Queen", "King", "Ace"};
         cards = new Card[52]; // Initialize the array for 52 cards
         topCardIndex = 0; // Start with an empty deck
