@@ -12,6 +12,7 @@ public class GameTable extends JPanel {
         g.setColor(Color.WHITE);
         g.setFont(new Font("Arial", Font.BOLD, 24));
         g.drawString("Dealer", 480, 25);
+        displayFaceDownCard(g, 100, 100);
     }
 
     public static void main(String[] args) {
@@ -23,5 +24,21 @@ public class GameTable extends JPanel {
         // Make it visible
         frame.setVisible(true);
     }
+
+    private static void displayFaceDownCard(Graphics g, int x, int y) {
+        // Draw a face-down card at the specified position (x, y)
+        Image cardBack = convertImage("back1.GIF");
+        g.drawImage(cardBack, x, y, null); // Assuming back1.GIF is a valid image
+    }
     
+    private static Image convertImage(String filePath) {
+        // Load the GIF as an ImageIcon
+        ImageIcon icon = new ImageIcon(filePath);
+
+        // Get the Image object from the icon
+        Image image = icon.getImage();
+
+        // Return the image for further processing or display
+        return image;
+    }
 }

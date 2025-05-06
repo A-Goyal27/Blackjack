@@ -19,7 +19,7 @@ public class Card {
     }
 
     // Method to return a string representation of the card
-    //@Override
+    @Override
     public String toString() {
         return rank + " of " + suit;
     }
