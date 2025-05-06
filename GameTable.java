@@ -27,8 +27,8 @@ public class GameTable extends JPanel {
 
     private static void displayFaceDownCard(Graphics g, int x, int y) {
         // Draw a face-down card at the specified position (x, y)
-        Image cardBack = convertImage("back1.GIF");
-        g.drawImage(cardBack, x, y, null); // Assuming back1.GIF is a valid image
+        Image cardBack = convertImage("cards\\back1.GIF");
+        g.drawImage(cardBack, x, y, Color.BLUE, null); // Assuming back1.GIF is a valid image
     }
     
     private static Image convertImage(String filePath) {
