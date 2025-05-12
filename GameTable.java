@@ -12,7 +12,8 @@ public class GameTable extends JPanel {
         g.setColor(Color.WHITE);
         g.setFont(new Font("Arial", Font.BOLD, 24));
         g.drawString("Dealer", 480, 25);
-        displayFaceDownCard(g, 100, 100);
+        //display the back of the card
+        displayCard(g, 100, 100, "Blackjack\\cards\\back1.GIF");
     }
 
     public static void main(String[] args) {
@@ -25,9 +26,8 @@ public class GameTable extends JPanel {
         frame.setVisible(true);
     }
 
-    private static void displayFaceDownCard(Graphics g, int x, int y) {
-        // Draw a face-down card at the specified position (x, y)
-        Image cardBack = convertImage("cards\\back1.GIF");
+    private static void displayCard(Graphics g, int x, int y, String filepath) {
+        Image cardBack = convertImage(filepath);
         g.drawImage(cardBack, x, y, Color.BLUE, null); // Assuming back1.GIF is a valid image
     }
     
