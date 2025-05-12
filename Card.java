@@ -1,3 +1,8 @@
+import java.awt.*;
+import javax.swing.*;
+
+//test
+
 public class Card {
     private String suit; // The suit of the card (e.g., "Hearts", "Diamonds", "Clubs", "Spades")
     private String rank; // The rank of the card (e.g., "2", "3", ..., "10", "Jack", "Queen", "King", "Ace")
@@ -22,5 +27,12 @@ public class Card {
     @Override
     public String toString() {
         return rank + " of " + suit;
+    }
+
+    public Image getImage() {
+        // Load the image for the card based on its suit and rank
+        String filePath = rank.toLowerCase() + suit.toLowerCase() + ".GIF"; // Assuming images are named like ex. 2Hearts.GIF
+        ImageIcon icon = new ImageIcon(filePath);
+        return icon.getImage(); // Return the image object
     }
 }
