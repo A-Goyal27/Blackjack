@@ -24,6 +24,20 @@ public class Card {
         return rank;
     }
 
+    public int getValue() {
+        // Convert the rank to a numerical value for scoring
+        switch (rank) {
+            case "Jack":
+            case "Queen":
+            case "King":
+                return 10; // Face cards are worth 10
+            case "Ace":
+                return 11; // Ace is worth 11 (should also be worth 1 but I can add that later)
+            default:
+                return Integer.parseInt(rank); // Convert numeric ranks to integers
+        }
+    }
+
     // Method to return a string representation of the card
     @Override
     public String toString() {
