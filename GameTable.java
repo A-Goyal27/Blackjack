@@ -1,7 +1,15 @@
 import java.awt.*;
+import java.lang.reflect.Array;
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.swing.*;
 
 public class GameTable extends JPanel {
+
+    private static Deck deck;
+    private static Dealer dealer;
+    private static Player player;
 
     @Override
     protected void paintComponent(Graphics g) {
@@ -13,7 +21,7 @@ public class GameTable extends JPanel {
         g.setFont(new Font("Arial", Font.BOLD, 24));
         g.drawString("Dealer", 480, 25);
         //display the back of the card
-        displayCard(g, 100, 100, "Blackjack\\cards\\back1.GIF");
+        displayCard(g, 100, 100, convertImage("Blackjack\\cards\\back1.GIF"));
     }
 
     public static void main(String[] args) {
@@ -24,11 +32,13 @@ public class GameTable extends JPanel {
         frame.add(new GameTable());
         // Make it visible
         frame.setVisible(true);
+
+        //runGame(deck, dealer, player);
     }
 
-    private static void displayCard(Graphics g, int x, int y, String filepath) {
-        Image cardBack = convertImage(filepath);
-        g.drawImage(cardBack, x, y, Color.BLUE, null); // Assuming back1.GIF is a valid image
+    private static void displayCard(Graphics g, int x, int y, Image cardImage) {
+        // Draw the card image at the specified coordinates
+        g.drawImage(cardImage, x, y, Color.BLUE, null); // Assuming back1.GIF is a valid image
     }
     
     private static Image convertImage(String filePath) {
@@ -40,5 +50,33 @@ public class GameTable extends JPanel {
 
         // Return the image for further processing or display
         return image;
+    }
+
+    private static void runGame(Deck deck, Dealer dealer, Player player) {
+        // Initialize the game components
+        // Starting money for the player
+        Game game = new Game(deck, dealer, player);
+        game.startGame();
+        // Add game loop or event handling here
+    }
+
+    private static void displayPlayerHand(Graphics g, Player player) {
+        ArrayList<Card> playerHand = player.getHand();
+        // Display the player's hand
+        g.setColor(Color.WHITE);
+        g.drawString("Player", 480, 550);
+        for (int i = 0; i < playerHand.size(); i++) {
+            displayCard(g, 100 + (i * 30), 500, playerHand.get(i).getImage());
+        }
+    }
+
+    private static void displayDealerHand(Graphics g, Dealer dealer) {
+        ArrayList<Card> dealerHand = dealer.getHand();
+        // Display the dealer's hand
+        g.setColor(Color.WHITE);
+        g.drawString("Dealer", 480, 25);
+        for (int i = 1; i < dealerHand.size(); i++) {
+            displayCard(g, 100 + (i * 30), 50, dealerHand.get(i).getImage());
+        }
     }
 }

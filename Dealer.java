@@ -14,6 +14,11 @@ public class Dealer {
     public void clearHand() {
         hand.clear();
     }
+
+    public ArrayList<Card> getHand() {
+        return hand;
+    }
+    
     public int score() {
         int total = 0;
         int aces = 0;
@@ -32,13 +37,18 @@ public class Dealer {
 
         return total;
     }
-    public void deal(Player player) {
+    public void initdeal(Player player) {
         player.addCard(deck.dealCard());
         this.addCard(deck.dealCard());
         player.addCard(deck.dealCard());
         this.addCard(deck.dealCard());
     }
     
+    public void play(int playerScore) { //will need to add graphics logic,  probably just add it in gametable class
+        while (score() < 16 && score() < playerScore) {
+            addCard(deck.dealCard());
+        }
+    }
 
 
 }

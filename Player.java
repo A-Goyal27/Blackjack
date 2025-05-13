@@ -15,6 +15,10 @@ public class Player implements Person {
     public void clearHand() {
         hand.clear();
     }
+
+    public ArrayList<Card> getHand() {
+        return hand;
+    }
     
     public int score() {
         int total = 0;

@@ -39,4 +39,10 @@ public class Deck {
     public int getRemainingCards() {
         return topCardIndex;
     }
+
+    // Method to reset the deck (optional)
+    public void reset() {
+        topCardIndex = cards.length; // Reset the index to the full deck
+        shuffle(); // Shuffle the deck again
+    }
 }
