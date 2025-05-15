@@ -1,7 +1,7 @@
 public class Game {
-    private Dealer dealer;
-    private Player player;
-    private Deck deck;
+    public Dealer dealer;
+    public Player player;
+    public Deck deck;
 
     public Game(Deck deck, Dealer dealer, Player player) {
         this.deck = deck;
@@ -9,17 +9,20 @@ public class Game {
         this.player = player;
     }
 
-    public void startGame() {
+    public boolean startGame() {
         deck.shuffle();
         dealer.initdeal(player);
-        // Add game logic here (e.g., player actions, dealer actions, etc.)
+        return true;
+        
     }
 
     public void evalGame(int bet) {
+        //get scores and have the dealer play
         int playerScore = player.score();
         dealer.play(playerScore);
         int dealerScore = dealer.score();
-
+        
+        //detemine winner
         if (playerScore > 21) {
             System.out.println("Player busts! Dealer wins.");
             player.payout(-bet);

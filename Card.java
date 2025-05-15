@@ -46,7 +46,7 @@ public class Card {
 
     public Image getImage() {
         // Load the image for the card based on its suit and rank
-        String filePath = rank.toLowerCase() + suit.toLowerCase() + ".GIF"; // Assuming images are named like ex. 2Hearts.GIF
+        String filePath = "Blackjack\\cards\\" + rank.toLowerCase() + suit.toLowerCase() + ".GIF"; // Assuming images are named like ex. 2Hearts.GIF
         ImageIcon icon = new ImageIcon(filePath);
         return icon.getImage(); // Return the image object
     }
