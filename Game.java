@@ -9,10 +9,10 @@ public class Game {
         this.player = player;
     }
 
-    public boolean startGame() {
+    public void startGame() {
         deck.shuffle();
         dealer.initdeal(player);
-        return true;
+       
         
     }
 
