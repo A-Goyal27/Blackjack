@@ -45,7 +45,7 @@ public class Dealer {
     }
     
     public void play(int playerScore) { //will need to add graphics logic,  probably just add it in gametable class
-        while (score() < 16 && score() < playerScore) {
+        while (score() < 16 || score() < playerScore) {
             addCard(deck.dealCard());
         }
     }

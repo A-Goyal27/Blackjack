@@ -12,6 +12,7 @@ public class GameTable extends JPanel {
     private static Player player = new Player(100);
     private static Game game = new Game(deck, dealer, player);
     private static boolean stood = false;
+    private static boolean playerWon = false;
 
     @Override
     protected void paintComponent(Graphics g) {
@@ -27,19 +28,27 @@ public class GameTable extends JPanel {
 
         //stand graphics
         g.setFont(new Font("Arial", Font.BOLD, 16));
+        g.drawString("Player's Hand: " + player.score(), 430, 525);
+        g.drawString("Player's Money: " + player.getMoney(), 800, 50);
         if (stood) {
             displayCard(g, 470, 100, dealer.getHand().get(0).getImage());
             g.setColor(Color.WHITE);
             g.drawString("Dealer's Hand: " + dealer.score(), 430, 50);
-            g.drawString("Player's Hand: " + player.score(), 430, 525);
-            g.drawString("Player's Money: " + player.getMoney(), 800, 50);
-        } else {
-            g.drawString("Player's Money: " + player.getMoney(), 800, 50);
+            if (playerWon) {
+                g.drawString("Player wins!", 430, 300);
+            } else {
+                g.drawString("Dealer wins!", 430, 300);
+            }
+            
         }
         
         //display hands
         displayDealerHand(g, dealer);
         displayPlayerHand(g, player);
+
+        if (player.getMoney() <= 0) {
+            g.drawString("Game Over! You are out of money.", 430, 330);
+        }
 
         
 
@@ -52,9 +61,15 @@ public class GameTable extends JPanel {
         JFrame frame = new JFrame("Game Table");
 
         //buttons
-        JButton next = new JButton("Next");
-        next.setBounds(850, 100, 75, 25);
-        frame.add(next);
+        JButton reset = new JButton("Reset");
+        reset.setBounds(850, 100, 75, 25);
+        frame.add(reset);
+        reset.addActionListener(e -> {
+            resetGame(frame);
+            dealer.initdeal(player);
+            frame.repaint();
+            
+        });
         JButton hit = new JButton("Hit");
         hit.setBounds(850, 125, 75, 25);
         frame.add(hit);
@@ -140,11 +155,20 @@ public class GameTable extends JPanel {
     private static void stand(JFrame frame) {
         // Implement stand logic
         //show face down card
-        game.evalGame(10); // Example bet amount
+        playerWon = game.evalGame(10); // Example bet amount
         stood = true;
         frame.repaint();
         
         
+    }
+
+    private static void resetGame(JFrame frame) {
+        // Reset the game state
+        dealer.clearHand();
+        player.clearHand();
+        
+        stood = false;
+        //frame.repaint();
     }
 
     
