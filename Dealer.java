@@ -45,6 +45,9 @@ public class Dealer {
     }
     
     public void play(int playerScore) { //will need to add graphics logic,  probably just add it in gametable class
+        if (playerScore >= 21) {
+            return; // Player has blackjack, dealer doesn't need to play
+        }
         while (score() < 16 || score() < playerScore) {
             addCard(deck.dealCard());
         }

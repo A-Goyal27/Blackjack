@@ -1,7 +1,6 @@
 import java.awt.*;
-import java.lang.reflect.Array;
 import java.util.ArrayList;
-import java.util.List;
+
 
 import javax.swing.*;
 
@@ -12,7 +11,7 @@ public class GameTable extends JPanel {
     private static Player player = new Player(100);
     private static Game game = new Game(deck, dealer, player);
     private static boolean stood = false;
-    private static boolean playerWon = false;
+    private static int winner = 0; // 1 for player, -1 for dealer, 0 for tie
 
     @Override
     protected void paintComponent(Graphics g) {
@@ -34,10 +33,12 @@ public class GameTable extends JPanel {
             displayCard(g, 470, 100, dealer.getHand().get(0).getImage());
             g.setColor(Color.WHITE);
             g.drawString("Dealer's Hand: " + dealer.score(), 430, 50);
-            if (playerWon) {
+            if (winner == 1) {
                 g.drawString("Player wins!", 430, 300);
-            } else {
+            } else if (winner == -1) {
                 g.drawString("Dealer wins!", 430, 300);
+            } else {
+                g.drawString("It's a tie!", 430, 300);
             }
             
         }
@@ -46,6 +47,7 @@ public class GameTable extends JPanel {
         displayDealerHand(g, dealer);
         displayPlayerHand(g, player);
 
+        //end game
         if (player.getMoney() <= 0) {
             g.drawString("Game Over! You are out of money.", 430, 330);
         }
@@ -155,7 +157,7 @@ public class GameTable extends JPanel {
     private static void stand(JFrame frame) {
         // Implement stand logic
         //show face down card
-        playerWon = game.evalGame(10); // Example bet amount
+        winner = game.evalGame(10); // Example bet amount
         stood = true;
         frame.repaint();
         

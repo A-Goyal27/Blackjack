@@ -16,7 +16,7 @@ public class Game {
         
     }
 
-    public boolean evalGame(int bet) { //returns true if player wins
+    public int evalGame(int bet) { //returns true if player wins
         //get scores and have the dealer play
         int playerScore = player.score();
         dealer.play(playerScore);
@@ -27,19 +27,20 @@ public class Game {
         if (playerScore > 21) {
             System.out.println("Player busts! Dealer wins.");
             player.payout(-bet);
-            player.clearHand();
-            dealer.clearHand();
+            return -1;
         } else if (dealerScore > 21 || playerScore > dealerScore) {
             System.out.println("Player wins!");
             player.payout(bet);
-            return true;
-        } else if (playerScore <= dealerScore) {
+            return 1;
+        } else if (playerScore < dealerScore) {
             System.out.println("Dealer wins!");
             player.payout(-bet);
+            return -1;
         } else {
-            System.out.println("error");
+            System.out.println("It's a tie!");
+            return 0;
         }
-        return false;
+        
     }
 
 }
