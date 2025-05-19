@@ -12,6 +12,9 @@ public class GameTable extends JPanel {
     private static Game game = new Game(deck, dealer, player);
     private static boolean stood = false;
     private static int winner = 0; // 1 for player, -1 for dealer, 0 for tie
+    private static int bet = 5;
+    private static boolean canBet = true;
+    
 
     @Override
     protected void paintComponent(Graphics g) {
@@ -47,6 +50,11 @@ public class GameTable extends JPanel {
         displayDealerHand(g, dealer);
         displayPlayerHand(g, player);
 
+        //display bet
+        g.setColor(Color.WHITE);
+        g.drawString("Current Bet: " + bet, 820, 400);
+        
+
         //end game
         if (player.getMoney() <= 0) {
             g.drawString("Game Over! You are out of money.", 430, 330);
@@ -58,6 +66,7 @@ public class GameTable extends JPanel {
     }
 
     public static void main(String[] args) {
+        
         
         // Create a frame (window)
         JFrame frame = new JFrame("Game Table");
@@ -76,6 +85,7 @@ public class GameTable extends JPanel {
         hit.setBounds(850, 125, 75, 25);
         frame.add(hit);
         hit.addActionListener(e -> {
+            canBet = false;
             hit(frame);
         });
         JButton stand = new JButton("Stand");
@@ -84,6 +94,54 @@ public class GameTable extends JPanel {
         stand.addActionListener(e -> {
             stand(frame);
         });
+
+        //betting buttons 1, 5, 10
+        JButton bet1 = new JButton("Bet 1");
+        bet1.setBounds(850, 425, 75, 25);
+        frame.add(bet1);
+        bet1.addActionListener(e -> {
+            if (player.getMoney() >= 1 && canBet) {
+                bet += 1;
+                if (bet > 25) {
+                    System.out.println("Bet is too high. Please lower your bet.");
+                    bet = 25;
+                }
+                frame.repaint();
+            } else {
+                System.out.println("Not enough money to place this bet.");
+            }
+        });
+        JButton bet5 = new JButton("Bet 5");
+        bet5.setBounds(850, 450, 75, 25);
+        frame.add(bet5);
+        bet5.addActionListener(e -> {
+            if (player.getMoney() >= 5 && canBet) {
+                bet += 5;
+                if (bet > 25) {
+                    System.out.println("Bet is too high. Please lower your bet.");
+                    bet = 25;
+                }
+                frame.repaint();
+            } else {
+                System.out.println("Can't bet that much or you have already hit.");
+            }
+        });
+        JButton bet10 = new JButton("Bet 10");
+        bet10.setBounds(850, 475, 75, 25);
+        frame.add(bet10);
+        bet10.addActionListener(e -> {
+            if (player.getMoney() >= 10 && canBet) {
+                bet += 10;
+                if (bet > 25) {
+                    System.out.println("Can't bet that much or you have already hit.");
+                    bet = 25;
+                }
+                frame.repaint();
+            } else {
+                System.out.println("Can't bet that much or you have already hit.");
+            }
+        });
+        
 
         frame.setSize(1000, 600);     // width, height
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -157,7 +215,7 @@ public class GameTable extends JPanel {
     private static void stand(JFrame frame) {
         // Implement stand logic
         //show face down card
-        winner = game.evalGame(10); // Example bet amount
+        winner = game.evalGame(bet); // Example bet amount
         stood = true;
         frame.repaint();
         
@@ -168,7 +226,9 @@ public class GameTable extends JPanel {
         // Reset the game state
         dealer.clearHand();
         player.clearHand();
-        
+
+        bet = 5;
+        canBet = true;
         stood = false;
         //frame.repaint();
     }
