@@ -16,7 +16,7 @@ public class GameTable extends JPanel {
     private static boolean canBet = true;
     
 
-    @Override
+    @Override //the graphics
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
         // Custom painting code goes here
@@ -76,23 +76,28 @@ public class GameTable extends JPanel {
         reset.setBounds(850, 100, 75, 25);
         frame.add(reset);
         reset.addActionListener(e -> {
-            resetGame(frame);
-            dealer.initdeal(player);
-            frame.repaint();
+            if (stood == true){
+                resetGame(frame);
+                dealer.initdeal(player);
+                frame.repaint();
+            }
             
         });
         JButton hit = new JButton("Hit");
         hit.setBounds(850, 125, 75, 25);
         frame.add(hit);
         hit.addActionListener(e -> {
-            canBet = false;
-            hit(frame);
+            if (stood == false){
+                canBet = false;
+                hit(frame);
+            }
         });
         JButton stand = new JButton("Stand");
         stand.setBounds(850, 150, 75, 25);
         frame.add(stand);
         stand.addActionListener(e -> {
-            stand(frame);
+            if (stood == false)
+                stand(frame);
         });
 
         //betting buttons 1, 5, 10
